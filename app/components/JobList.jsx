@@ -1,7 +1,7 @@
 "use client";
 import RemoveBtn from "./RemoveBtn";
 import Link from "next/link";
-import { HiPencilAlt, HiOutlineUserCircle } from "react-icons/hi";
+import { HiPencilAlt, HiOutlineUserCircle, HiPlus, HiArrowRight } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {useSession} from "next-auth/react";
@@ -51,26 +51,26 @@ export default function JobList() {
 
   return (
     <>
-      <div className=" flex items-center">
-          {/* Add Job Button */}
-          <Link
-            className="mt-3 bg-slate-600 text-white font-bold py-5 px-20 rounded mt-20"
-            href="/addJob"
-          >
-            Post Job
-          </Link>
+      <div className="flex justify-between items-center mb-6">
+  {/* Post Job Button */}
+        <Link
+          className="bg-slate-600 text-white font-bold py-3 px-8 rounded flex items-center gap-2 hover:bg-slate-700 transition duration-200"
+          href="/addJob"
+        >
+          <HiPlus size={20} />
+          Post Job
+        </Link>
 
-          {/* Profile Section */}
-          <div className="ml-auto mt-3 flex items-center gap-3">
-            <HiOutlineUserCircle size={40} className="text-gray-700" />
-            <Link href="/dashboard" className="text-gray-700 font-bold">
-              My Profile
-            </Link>
-          </div>
-        </div>
+        {/* Profile Section */}
+        <Link href="/dashboard1" className="flex items-center text-gray-700 text-bold hover:text-gray-900 transition duration-200">
+          <HiOutlineUserCircle size={40} className="text-gray-700" /> My Profile
+        </Link>
+      </div>
 
-        <p className=" mt-5 text-3xl  mt-2 ">Job List</p>
-
+      <Link href="/freelancers" className="mt-5 text-3xl flex items-center gap-2 hover:text-gray-700 transition duration-200">
+        Browse freelancers
+        <HiArrowRight size={28} className="mt-2 text-gray-700"/>
+      </Link>
         {/* Jobs List */}
         {jobs.length > 0 ? (
           jobs.map((j) => (
@@ -85,26 +85,33 @@ export default function JobList() {
                   <p><strong>Skills Required:</strong> {j.skillsRequired.join(', ')}</p>
                   <p><strong>Salary per Month:</strong> ${j.salaryPerMonth}</p>
                   <p><strong>Work Duration:</strong> {j.workDuration}</p>
-                  <p><strong>Experience Level:</strong> {j.experienceLevel}</p>
-                  <p><strong>Deadline:</strong> {new Date(j.deadline).toLocaleDateString()}</p>
+                  <br></br>
+                  {/* <p><strong>Posted by:</strong> {j.postedBy?.name || "Unknown"}</p> */}
+                  
+                  
                 </div>
               </div>
 
-              {session?.user?.id === j.postedBy && (
-                <div className="flex gap-2 ">
-                <RemoveBtn id={j._id} onJobDelete={fetchJobs} />
-                <Link href={`/editTopic/${j._id}`}>
-                  <HiPencilAlt size={24} />
-                </Link>
-                </div>
-              )}
+              <div className="mt-4 flex justify-between w-full">
 
-              {/* Show More Details Button inside each job post */}
-              <div className="mt-4 flex justify-end w-full">
-                <Link  className="text-blue-500 font-bold" href={`/employerJobDetail/${j._id}`} >
-                  Show More Details
-                </Link>
-              </div>
+                {session?.user?.id === j.postedBy && (
+                  <div className="flex gap-3 ">
+                    
+                      <RemoveBtn id={j._id} onJobDelete={fetchJobs} />
+                      <Link href={`/editTopic/${j._id}`}>
+                        <HiPencilAlt className="mt-2" size={24} />
+                      </Link>
+                  
+                  </div>
+                )}
+
+                  {/* Show More Details Button inside each job post */}
+                  <div className="mt-4 flex justify-end w-full">
+                    <Link  className="text-blue-500 font-bold" href={`/employerJobDetail/${j._id}`} >
+                      Show More Details
+                    </Link>
+                  </div>
+                </div>
             </div>
           ))
 

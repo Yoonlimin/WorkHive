@@ -37,7 +37,7 @@ const jobPostSchema = new Schema(
     },
     postedBy: {
       type: Schema.Types.ObjectId,
-      ref: 'User', // Assuming you have a User model defined
+      ref: 'Employer', // Assuming you have a User model defined
       required: true,
     },
   },

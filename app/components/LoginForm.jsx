@@ -77,7 +77,7 @@ export default function Signup() {
           </div>
 
           {/* Submit Button */}
-          <button className="w-full bg-green-500 text-white p-3 rounded" type="submit"
+          <button className="w-full bg-blue-500 text-white p-3 rounded" type="submit"
          
             
           >

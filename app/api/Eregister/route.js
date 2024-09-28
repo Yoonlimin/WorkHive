@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import connectMongoDB from "@/libs/mongodb";
-import User from "@/models/employer";
+import Employer from "@/models/employer";
 import bcrypt from "bcryptjs";
 
 export async function POST(request) {
@@ -14,7 +14,7 @@ export async function POST(request) {
     // Connect to MongoDB
     await connectMongoDB();
 
-    const existingEmployer = await User.findOne({ email });
+    const existingEmployer = await Employer.findOne({ email });
 
     if (existingEmployer) {
       return NextResponse.json(
@@ -54,28 +54,53 @@ export async function GET(request) {
     // Connect to MongoDB
     await connectMongoDB();
 
+
     // Find the employer based on the email
-    const employer = await User.findOne({ email });
+    const employer = await Employer.findOne({ email });
 
     if (!employer) {
       return NextResponse.json({ message: "Employer not found" }, { status: 404 });
     }
 
+    
+
     // Return employer profile including the new fields
-    return NextResponse.json({
-      employer: {
-        name: employer.name,
-        email: employer.email,
-        companyName: employer.companyName,
-        companyDetails: employer.companyDetails,
-        address: employer.address,
-        phoneNumber: employer.phoneNumber
-      }
+    return NextResponse.json({employer
+      // : {
+      //   id : employer._id,
+      //   name: employer.name,
+      //   email: employer.email,
+      //   companyName: employer.companyName,
+      //   companyDetails: employer.companyDetails,
+      //   address: employer.address,
+      //   phoneNumber: employer.phoneNumber
+      // }
     }, { status: 200 });
   } catch (error) {
     console.error("Error fetching employer profile:", error);
     return NextResponse.json({ message: "Error occurred while fetching employer profile" }, { status: 500 });
   }
+}
+
+export async function DELETE(request) {
+  await connectMongoDB();
+
+  // Get the email from the query parameters
+  const { searchParams } = new URL(request.url);
+  const email = searchParams.get("email");
+
+  if (!email) {
+    return NextResponse.json({ message: "Email is required" }, { status: 400 });
+  }
+
+  // Find and delete the employer by email
+  const deletedEmployer = await Employer.findOneAndDelete({ email });
+
+  if (!deletedEmployer) {
+    return NextResponse.json({ message: "Employer not found" }, { status: 404 });
+  }
+
+  return NextResponse.json({ message: "Profile deleted successfully" }, { status: 200 });
 }
 
   

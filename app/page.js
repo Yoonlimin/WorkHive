@@ -24,7 +24,7 @@ export default function Home() {
         
         </Link>
 
-        <Link href={"/freelancer"} className="bg-green-500 text-white font-bold py-5 px-20 rounded mt-20"> 
+        <Link href={"/login2"} className="bg-green-500 text-white font-bold py-5 px-20 rounded mt-20"> 
         <div className="flex justify-center items-center ">
          <FontAwesomeIcon icon={faLaptopCode} className="h-8 w-8  " />
         </div>

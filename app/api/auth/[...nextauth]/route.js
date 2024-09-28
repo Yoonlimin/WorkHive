@@ -1,49 +1,58 @@
 import connectMongoDB from '@/libs/mongodb';
-import { connect } from 'mongoose';
 import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
-import User from '@/models/employer';
+import Employer from '@/models/employer';
+import Freelancer from '@/models/freelancer'; // Import Freelancer model
 
 export const authOptions = {
   providers: [
     CredentialsProvider({
       name: 'credentials',
       credentials: {
-        
-        
+        // Add fields if needed, such as email and password
       },
       async authorize(credentials) {
-        const {email, password} = credentials;
-        
-        
-        try{
+        const { email, password } = credentials;
+
+        try {
           await connectMongoDB();
-          const user = await User.findOne({email});
-          if(!user){
+
+          // Check if the user is an Employer
+          let user = await Employer.findOne({ email });
+
+          // If not found, check if the user is a Freelancer
+          if (!user) {
+            user = await Freelancer.findOne({ email });
+          }
+
+          // If still not found, return null (unauthorized)
+          if (!user) {
             return null;
           }
 
-          const passwordMatch=await bcrypt.compare(password, user.password);
-          
-          if(!passwordMatch){
+          // Check password
+          const passwordMatch = await bcrypt.compare(password, user.password);
+
+          if (!passwordMatch) {
             return null;
           }
+
+          // Return common user data (whether Employer or Freelancer)
           return { id: user._id, name: user.name, email: user.email };
-        
+        } catch (error) {
+          console.error('Error during authorization:', error);
+          return null;
         }
-        catch(error){}
       },
     }),
   ],
 
-
-  
-  session :{
-   strategy : 'jwt',
+  session: {
+    strategy: 'jwt',
   },
   secret: process.env.NEXTAUTH_SECRET,
-  pages :{
+  pages: {
     signIn: '/login',
   },
   callbacks: {
@@ -66,4 +75,4 @@ export const authOptions = {
 
 const handler = NextAuth(authOptions);
 
-export {handler as GET, handler as POST}; 
+export { handler as GET, handler as POST };

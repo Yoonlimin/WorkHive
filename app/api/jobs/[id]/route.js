@@ -2,6 +2,7 @@ import connectMongoDB from "@/libs/mongodb";
 import JobPost from "@/models/job";
 import { NextResponse } from "next/server";
 import { getSession } from "next-auth/react";
+import { getToken } from "next-auth/jwt";
 
 export async function PUT(request, { params }) {
  const { id } = params;
@@ -22,6 +23,8 @@ export async function PUT(request, { params }) {
  } = await request.json();
  
  await connectMongoDB();
+
+ 
 
  const job = await JobPost.findById(id);
 
@@ -47,6 +50,7 @@ export async function GET(request, { params }) {
  const { id } = params;
 
  await connectMongoDB();
+ 
 
  const job = await JobPost.findOne({ _id: id });
  
@@ -68,13 +72,13 @@ export async function DELETE(req) {
   const userId = decodedToken.userId;
   const job = await JobPost.findOneAndDelete({ userId });
   if (!job) {
-    return new Response(JSON.stringify({ success: false, error: 'Vehicle not found' }), {
+    return new Response(JSON.stringify({ success: false, error: 'Job  not found' }), {
       status: 404,
       headers: { 'Content-Type': 'application/json' },
     });
   }
  
-  return new Response(JSON.stringify({ success: true, message: 'Vehicle deleted successfully' }), {
+  return new Response(JSON.stringify({ success: true, message: 'Job deleted successfully' }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' },
   });
