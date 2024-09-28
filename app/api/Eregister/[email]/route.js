@@ -18,15 +18,12 @@ export async function PUT(request, { params }) {
   } = await request.json();
 
   await connectMongoDB();
-
   // Find the employer by email
   const employer = await Employer.findOne({ email });
-
-  // If the employer is not found, return a 404 response
+  //If the employer is not found, return a 404 response
   if (!employer) {
     return NextResponse.json({ message: "Employer not found" }, { status: 404 });
   }
-
   // Prepare the update data
   const updateData = {
     name,
@@ -35,35 +32,28 @@ export async function PUT(request, { params }) {
     address,
     phoneNumber,
   };
-
   // Hash and update password if provided
   if (newPassword) {
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     updateData.password = hashedPassword;
   }
-
   // Update the employer profile by email
   await Employer.findOneAndUpdate({ email }, updateData);
-
   return NextResponse.json({ message: "Profile Updated" }, { status: 200 });
 }
 
 export async function GET(request, { params }) {
   const email = decodeURIComponent(params.email);
-
-
   await connectMongoDB();
-
   // Find the employer by email
   const employer = await Employer.findOne({ email });
-
   if (!employer) {
     return NextResponse.json({ message: "Employer not found" }, { status: 404 });
   }
-
   // Return employer details
   return NextResponse.json({ employer }, { status: 200 });
 }
+
 
 export async function DELETE(request, { params }) {
   const email = decodeURIComponent(params.email);

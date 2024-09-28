@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {signIn} from 'next-auth/react';
+import {signIn, getSession} from 'next-auth/react';
 import { redirect } from 'next/dist/server/api-utils';
 import { useRouter } from 'next/navigation';
 
@@ -13,30 +13,36 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
  const router=useRouter();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try{
-      const res=await signIn('credentials',
-       { 
-        email,
-        password, 
-        redirect: false,
-       });
+  try {
+    const res = await signIn('credentials', {
+      email,
+      password,
+      redirect: false,
+    });
 
-       if(res.error){
-         setError("Something went wrong, please try again");
-         return;
-       }
-
-       router.push('/employer');
-    }catch 
-    (error){
-      console.log('An error occured while logging in', error);
+    if (res.error) {
+      setError('Please check your email and password again');
+      return;
     }
-    // Handle signup logic here (e.g., sending data to the server)
-  
-  };
+
+    // Fetch session to get user role
+    const session = await getSession();
+
+    // Redirect based on user role
+    if (session?.user?.role === 'employer') {
+      router.push('/employer'); // Replace with the correct path for employer
+    } else if (session?.user?.role === 'freelancer') {
+       setError('This account is not registered as a client');
+       router.refresh();// Replace with the correct path for freelancer
+    }
+  } catch (error) {
+    console.log('An error occurred while logging in', error);
+  }
+};
+
 
   return (
     <div className="flex justify-center items-center ">

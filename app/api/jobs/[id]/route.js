@@ -6,11 +6,11 @@ import { getToken } from "next-auth/jwt";
 
 export async function PUT(request, { params }) {
  const { id } = params;
- const session = await getSession({ req: request });
+//  const session = await getSession({ req: request });
 
- if (!session) {
-  return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
-}
+//  if (!session) {
+//   return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+// }
  const {
     newCompanyName: companyName,
    newJobTitle: jobTitle,
@@ -28,10 +28,15 @@ export async function PUT(request, { params }) {
 
  const job = await JobPost.findById(id);
 
-  if (job.postedBy.toString() !== session.user.id) {
-    return NextResponse.json({ message: "Not authorized to edit this job" }, { status: 403 });
-  }
+  // if (job.postedBy.toString() !== session.user.id) {
+  //   return NextResponse.json({ message: "Not authorized to edit this job" }, { status: 403 });
+  // }
+
+  if (!job) {
+    return NextResponse.json({ message: "Job not found" }, { status: 404 });
  
+  }
+  
  await JobPost.findByIdAndUpdate(id, {
     companyName,
    jobTitle,

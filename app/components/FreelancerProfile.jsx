@@ -6,57 +6,60 @@ import { HiPencilAlt } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-// Fetch employer profile
-const getEmployerProfile = async (email) => {
+// Fetch freelancer profile
+const getFreelancerProfile = async (email) => {
   try {
+    // Encode the email before making the fetch call
     const encodedEmail = encodeURIComponent(email);
-    const res = await fetch(`http://localhost:3000/api/Eregister?email=${encodedEmail}`, {
+    const res = await fetch(`http://localhost:3000/api/Fregister?email=${encodedEmail}`, {
       cache: "no-store",
     });
 
     if (!res.ok) {
-      throw new Error("Failed to fetch employer profile");
+      throw new Error("Failed to fetch freelancer profile");
     }
 
     const data = await res.json();
-    return data.employer;
+    return data.freelancer;
   } catch (error) {
-    console.error("Error loading employer profile:", error);
+    console.error("Error loading freelancer profile:", error);
     return null;
   }
 };
 
-const deleteEmployerAccount = async (email) => {
-  const confirmed = confirm("Are you sure you want to delete this account?");
+const deleteFreelancerAccount = async (email) => {
+  const confirmed = confirm("Are you sure you want to delete your account?");
   if (confirmed) {
     const encodedEmail = encodeURIComponent(email);
-    const res = await fetch(`http://localhost:3000/api/Eregister?email=${encodedEmail}`, {
+    const res = await fetch(`http://localhost:3000/api/Fregister?email=${encodedEmail}`, {
       method: "DELETE",
     });
 
     if (!res.ok) {
-      throw new Error("Failed to delete employer account");
+      throw Error("Failed to delete freelancer account");
     }
 
-    console.log("Employer deleted successfully");
+    console.log("Freelancer deleted successfully");
     return true;
   }
 };
 
-export default function EmployerProfile() {
+export default function FreelancerProfile() {
   const router = useRouter();
   const { data: session } = useSession();
-  const [employer, setEmployer] = useState(null);
+  const [freelancer, setFreelancer] = useState(null);
 
   useEffect(() => {
     if (session?.user?.email) {
-      getEmployerProfile(session.user.email).then((data) => {
-        setEmployer(data);
+      // Decode the session email before using it
+      const decodedEmail = decodeURIComponent(session.user.email);
+      getFreelancerProfile(decodedEmail).then((data) => {
+        setFreelancer(data);
       });
     }
   }, [session?.user?.email]);
 
-  if (!employer) {
+  if (!freelancer) {
     return <p>Loading profile...</p>;
   }
 
@@ -69,54 +72,48 @@ export default function EmployerProfile() {
         <div className="w-16 h-16 bg-gray-300 rounded-full"></div>
         
         {/* Freelancer's Name */}
-        <h1 className="text-3xl font-bold">{employer.name}</h1>
+        <h1 className="text-3xl font-bold">{freelancer.name}</h1>
       </div>
 
         <button
           className="bg-slate-500 p-2 rounded-full text-white flex items-center gap-3"
-          onClick={() => router.push(`/editEProfile/${encodeURIComponent(employer.email)}`)}
+          onClick={() => router.push(`/editProfile2/${encodeURIComponent(freelancer.email)}`)}
         >
           <HiPencilAlt size={24} />
         </button>
       </div>
 
-      {/* Employer Account Info */}
+      {/* Freelancer Account Info */}
       <div className="bg-white rounded-lg p-6 shadow mb-6">
         <div className="flex justify-between items-center">
           <div>
             <h2 className="text-xl font-bold mb-2">Account and Password</h2>
-            <p className="text-gray-500">{employer.email}</p>
+            <p className="text-gray-500">{freelancer.email}</p>
             <p className="text-gray-500">*******</p>
           </div>
         </div>
       </div>
 
+      {/* Freelancer Professional Info */}
       <div className="bg-white rounded-lg p-6 shadow mb-6">
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-xl font-bold mb-2">Company Name</h2>
-            <p>{employer.companyName}</p>
+            <h2 className="text-xl font-bold mb-2">Professional Information</h2>
+            <p><strong>Job Field:</strong> {freelancer.workType}</p>
+            <p><strong>Skills:</strong> {freelancer.skills.join(', ')}</p>
+            <p><strong>Experience Level:</strong> {freelancer.experienceLevel}</p>
+            <p><strong>Hourly Rate:</strong> ${freelancer.salaryRate}</p>
           </div>
         </div>
       </div>
 
-      {/* Company Details */}
+      {/* Freelancer Contacts */}
       <div className="bg-white rounded-lg p-6 shadow mb-6">
-        <div className="flex justify-between items-center">
-          <div>
-            <h2 className="text-xl font-bold mb-2">Company Details</h2>
-            <p>{employer.companyDetails}</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Company Contacts */}
-      <div className="bg-white rounded-lg p-6 shadow mb-6">
-        <h2 className="text-xl font-bold mb-2">Company contacts</h2>
+        <h2 className="text-xl font-bold mb-2">Contact Information</h2>
         <p className="font-bold">Address</p>
-        <p>{employer.address}</p>
+        <p>{freelancer.address}</p>
         <p className="font-bold">Phone</p>
-        <p>{employer.phoneNumber}</p>
+        <p>{freelancer.phoneNumber}</p>
       </div>
 
       {/* Account Actions */}
@@ -126,7 +123,7 @@ export default function EmployerProfile() {
           <button
             className="bg-red-500 text-white font-bold py-2 px-4 rounded"
             onClick={async () => {
-              const isDeleted = await deleteEmployerAccount(employer.email);
+              const isDeleted = await deleteFreelancerAccount(freelancer.email);
               if (isDeleted) {
                 signOut({ redirect: false }).then(() => {
                   router.push('/'); // Redirect to '/' after signing out
@@ -136,7 +133,7 @@ export default function EmployerProfile() {
           >
             Delete Account
           </button>
-          
+
           {/* Logout Button */}
           <button
             onClick={() => {
@@ -146,7 +143,7 @@ export default function EmployerProfile() {
             }}
             className="text-red-600 font-bold py-2 px-4 rounded border border-red-600"
           >
-            LogOut
+            Log Out
           </button>
         </div>
       </div>

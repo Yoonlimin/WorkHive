@@ -251,7 +251,7 @@ export default function FreelancerRegisterForm() {
           </div>
 
           {/* Submit Button */}
-          <button className="w-full bg-blue-500 text-white p-3 rounded" type="submit">
+          <button className="w-full bg-green-500 text-white p-3 rounded" type="submit">
             Register
           </button>
 
@@ -264,7 +264,7 @@ export default function FreelancerRegisterForm() {
 
           {/* Login Link */}
           <div className="text-right">
-            <Link className="text-sm mt-10 text-right" href={"/login"}>
+            <Link className="text-sm mt-10 text-right" href={"/login2"}>
               Already have an account? <span className='underline'>Login</span>
             </Link>
           </div>

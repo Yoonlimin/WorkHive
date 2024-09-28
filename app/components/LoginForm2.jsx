@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { signIn } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 export default function FreelancerLogin() {
@@ -13,21 +13,29 @@ export default function FreelancerLogin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const res = await signIn('credentials', { 
+      const res = await signIn('credentials', {
         email,
-        password, 
+        password,
         redirect: false,
       });
-
+  
       if (res.error) {
-        setError("Something went wrong, please try again");
+        setError('Please check your email and password again');
         return;
       }
-
-      // Redirect to freelancer dashboard upon successful login
-      router.push('/freelancer');
+  
+      // Fetch session to get user role
+      const session = await getSession();
+  
+      // Redirect based on user role
+      if (session?.user?.role === 'freelancer') {
+        router.push('/freelancer'); 
+      } else if (session?.user?.role === 'employer') {
+         setError('Sorry ! This account is not registered as an freelancer');
+         router.refresh();// Replace with the correct path for freelancer
+      }
     } catch (error) {
       console.log('An error occurred while logging in', error);
     }

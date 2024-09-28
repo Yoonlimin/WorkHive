@@ -3,27 +3,27 @@ import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import Employer from '@/models/employer';
-import Freelancer from '@/models/freelancer'; // Import Freelancer model
+import Freelancer from '@/models/freelancer';
 
 export const authOptions = {
   providers: [
     CredentialsProvider({
       name: 'credentials',
-      credentials: {
-        // Add fields if needed, such as email and password
-      },
+      credentials: {},
       async authorize(credentials) {
         const { email, password } = credentials;
 
         try {
           await connectMongoDB();
 
-          // Check if the user is an Employer
+          // Try to find the user as an Employer first
           let user = await Employer.findOne({ email });
+          let role = 'employer';
 
           // If not found, check if the user is a Freelancer
           if (!user) {
             user = await Freelancer.findOne({ email });
+            role = 'freelancer';
           }
 
           // If still not found, return null (unauthorized)
@@ -38,8 +38,8 @@ export const authOptions = {
             return null;
           }
 
-          // Return common user data (whether Employer or Freelancer)
-          return { id: user._id, name: user.name, email: user.email };
+          // Return user data with role included
+          return { id: user._id, name: user.name, email: user.email, role };
         } catch (error) {
           console.error('Error during authorization:', error);
           return null;
@@ -57,16 +57,18 @@ export const authOptions = {
   },
   callbacks: {
     async session({ session, token }) {
-      // Attach user ID to session object
+      // Attach user ID and role to session object
       if (token?.id) {
         session.user.id = token.id;
+        session.user.role = token.role;
       }
       return session;
     },
     async jwt({ token, user }) {
-      // Add user ID to JWT token
+      // Add user ID and role to JWT token
       if (user?.id) {
         token.id = user.id;
+        token.role = user.role; // Attach role to token
       }
       return token;
     },

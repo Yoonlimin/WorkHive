@@ -46,20 +46,28 @@ export default function JobList() {
 
     fetchJobs();
   }, []);
-  
-
 
   return (
     <>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center ">
   {/* Post Job Button */}
+        <div className="flex flex-col gap-4">
         <Link
-          className="bg-slate-600 text-white font-bold py-3 px-8 rounded flex items-center gap-2 hover:bg-slate-700 transition duration-200"
+          className="bg-green-600 text-white font-bold py-3 px-8 rounded flex items-center gap-2 hover:bg-green-700 transition duration-200"
           href="/addJob"
         >
           <HiPlus size={20} />
           Post Job
         </Link>
+
+        <Link
+          className="bg-slate-600 text-white font-bold py-3 px-8 rounded flex items-center gap-2 hover:bg-slate-700 transition duration-200"
+          href="/viewApplications" // Change this to the correct route for viewing applications
+        >
+          
+          View Applications
+        </Link>
+      </div>
 
         {/* Profile Section */}
         <Link href="/dashboard1" className="flex items-center text-gray-700 text-bold hover:text-gray-900 transition duration-200">
@@ -67,10 +75,6 @@ export default function JobList() {
         </Link>
       </div>
 
-      <Link href="/freelancers" className="mt-5 text-3xl flex items-center gap-2 hover:text-gray-700 transition duration-200">
-        Browse freelancers
-        <HiArrowRight size={28} className="mt-2 text-gray-700"/>
-      </Link>
         {/* Jobs List */}
         {jobs.length > 0 ? (
           jobs.map((j) => (
