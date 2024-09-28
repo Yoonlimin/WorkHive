@@ -62,9 +62,9 @@ export default function JobDetails({ id }) {
         <div className="flex items-center gap-4 mb-4">
           <div className="bg-gray-300 rounded-full h-14 w-14"></div>
           <div>
-            <p className="text-brown-600 text-xl font-bold">{job.companyName || "Company name not available"}</p>
-            <p className="text-lg font-semibold">{job.jobTitle || "Job title not available"}</p>
-            <p className="text-gray-500">${job.salaryPerMonth || "Salary not available"} / month</p>
+            <p className="text-brown-600 text-xl font-bold">Company Name : {job.companyName || "Company name not available"}</p>
+            <p className="text-lg font-semibold">Job Titile : {job.jobTitle || "Job title not available"}</p>
+            <p className="text-gray-500">{job.salaryPerMonth || "Salary not available"} THB / month</p>
           </div>
         </div>
 
@@ -95,9 +95,14 @@ export default function JobDetails({ id }) {
 
         {/* Apply Button */}
         <div className="flex justify-end mt-4">
-          <button className="bg-white border border-gray-500 text-gray-700 font-bold py-2 px-6 rounded">
-            Apply
-          </button>
+           <Link href={`/applyJob/${job._id}`}>
+              <button
+              // onClick={() => router.push(`/applyJob/${j._id}`)} // Navigate to application form with job ID
+               className="bg-white border border-gray-500 text-gray-700 font-bold py-2 px-6 rounded"
+                >
+                  Apply
+              </button>
+            </Link>
         </div>
       </div>
     </div>

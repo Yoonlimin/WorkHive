@@ -1,4 +1,5 @@
 import JobDetails from "@/app/components/EJobDetails";
+import ApplicationForm from '../../components/ApplicationForm';
 
 const getJobById = async (id) => {
  try {
@@ -16,7 +17,10 @@ const getJobById = async (id) => {
  }
 };
 
+
 export default  async function EmployerJobDetails({ params }) {
+
+
 
  const { id } = params; // Extract the job ID from the params
 

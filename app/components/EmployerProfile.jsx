@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { HiPencilAlt } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import Image from 'next/image';
 
 // Fetch employer profile
 const getEmployerProfile = async (email) => {
@@ -66,7 +67,16 @@ export default function EmployerProfile() {
       <div className="flex items-center justify-between mt-5 mb-10">
       <div className="flex items-center gap-4">
         {/* Profile Picture Placeholder */}
-        <div className="w-16 h-16 bg-gray-300 rounded-full"></div>
+        <div className="w-16 h-16 relative">
+
+        <Image
+            src="/userProfile.png" // Path to your image relative to the public directory
+            alt="Profile Picture"
+            className="rounded-full object-cover"
+            layout="fill" // Ensures the image covers the container
+            priority // Optional: improves loading speed for important images
+          />
+        </div>
         
         {/* Freelancer's Name */}
         <h1 className="text-3xl font-bold">{employer.name}</h1>

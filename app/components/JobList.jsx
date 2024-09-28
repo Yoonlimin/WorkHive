@@ -51,9 +51,9 @@ export default function JobList() {
     <>
       <div className="flex justify-between items-center ">
   {/* Post Job Button */}
-        <div className="flex flex-col gap-4">
+        <div className="flex  gap-4">
         <Link
-          className="bg-green-600 text-white font-bold py-3 px-8 rounded flex items-center gap-2 hover:bg-green-700 transition duration-200"
+          className="bg-emerald-700 text-white font-bold py-3 px-8 rounded flex items-center gap-2 hover:bg-green-700 transition duration-200"
           href="/addJob"
         >
           <HiPlus size={20} />
@@ -61,10 +61,9 @@ export default function JobList() {
         </Link>
 
         <Link
-          className="bg-slate-600 text-white font-bold py-3 px-8 rounded flex items-center gap-2 hover:bg-slate-700 transition duration-200"
-          href="/viewApplications" // Change this to the correct route for viewing applications
+          className="bg-slate-700 text-white font-bold py-3 px-8 rounded flex items-center gap-2 hover:bg-slate-700 transition duration-200"
+          href={`/viewApplication?employerId=${session?.user?.id}`} // Pass employer ID as a query parameter
         >
-          
           View Applications
         </Link>
       </div>
@@ -83,7 +82,8 @@ export default function JobList() {
               className="p-4 border border-slate-300 my-3 flex flex-col gap-5 items-start"
             >
               <div>
-                <h2 className="font-bold text-2xl">{j.jobTitle}</h2>
+                <p>We’re hiring</p>
+                <h2 className="font-bold text-2xl underline">{j.jobTitle}</h2>
                 <div className="mt-2">
                   <p><strong>Description:</strong> {j.jobDescription}</p>
                   <p><strong>Skills Required:</strong> {j.skillsRequired.join(', ')}</p>

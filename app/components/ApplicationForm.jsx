@@ -1,91 +1,119 @@
-// "use client";
-// import { useState } from "react";
+"use client";
 
-// export default function JobApplicationForm({ jobId }) {
-//   const [name, setName] = useState("");
-//   const [email, setEmail] = useState("");
-//   const [address, setAddress] = useState("");
-//   const [resume, setResume] = useState(null);
-//   const [coverLetter, setCoverLetter] = useState(null);
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
-//   const handleResumeChange = (e) => {
-//     setResume(e.target.files[0]);
-//   };
+export default function ApplyJob({ jobPostId }) { // Pass jobPostId as a prop when rendering
+  const { data: session } = useSession();
+  const router = useRouter();
 
-//   const handleCoverLetterChange = (e) => {
-//     setCoverLetter(e.target.files[0]);
-//   };
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [resume, setResume] = useState(""); 
+  const [coverLetter, setCoverLetter] = useState(""); 
+  
+  const [appliedBy, setAppliedBy] = useState(""); 
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
+  // Set `appliedBy` using session data
+  useEffect(() => {
+    if (session && session.user) {
+      setAppliedBy(session.user.id); // Assuming session contains `id` of the freelancer
+      setName(session.user.name); 
+      setEmail(session.user.email);
+    }
+  }, [session]);
 
-//     const formData = new FormData();
-//     formData.append("name", name);
-//     formData.append("email", email);
-//     formData.append("address", address);
-//     formData.append("resume", resume);
-//     formData.append("coverLetter", coverLetter);
-//     formData.append("jobId", jobId);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-//     try {
-//       const res = await fetch("http://localhost:3000/api/apply", {
-//         method: "POST",
-//         body: formData,
-//       });
+    try {
+      const res = await fetch("http://localhost:3000/api/apply", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          address,
+          resume,
+          coverLetter,
+          jobPostId, // Include jobPostId
+          appliedBy, // Include the ID of the freelancer
+        }),
+      });
 
-//       if (!res.ok) {
-//         throw new Error("Failed to submit application");
-//       }
+      if (!res.ok) {
+        throw new Error("Failed to submit application");
+      }
 
-//       console.log("Application submitted successfully");
-//     } catch (error) {
-//       console.error("Error submitting application:", error);
-//     }
-//   };
+      console.log("Application submitted successfully");
+      router.push("/freelancer"); // Redirect or provide feedback on success
+    } catch (error) {
+      console.error("Error submitting application:", error);
+    }
+  };
 
-//   return (
-//     <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
-//       <h2 className="text-2xl font-semibold mb-4">Job Application</h2>
-//       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-//         <div>
-//           <label className="block font-semibold mb-1">Name</label>
-//           <input
-//             type="text"
-//             value={name}
-//             onChange={(e) => setName(e.target.value)}
-//             className="w-full p-3 border rounded"
-//           />
-//         </div>
-//         <div>
-//           <label className="block font-semibold mb-1">Email</label>
-//           <input
-//             type="email"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//             className="w-full p-3 border rounded"
-//           />
-//         </div>
-//         <div>
-//           <label className="block font-semibold mb-1">Address</label>
-//           <input
-//             type="text"
-//             value={address}
-//             onChange={(e) => setAddress(e.target.value)}
-//             className="w-full p-3 border rounded"
-//           />
-//         </div>
-//         <div>
-//           <label className="block font-semibold mb-1">Resume</label>
-//           <input type="file" onChange={handleResumeChange} />
-//         </div>
-//         <div>
-//           <label className="block font-semibold mb-1">Cover Letter</label>
-//           <input type="file" onChange={handleCoverLetterChange} />
-//         </div>
-//         <button type="submit" className="w-full bg-blue-500 text-white font-semibold py-3 rounded mt-4">
-//           Submit Application
-//         </button>
-//       </form>
-//     </div>
-//   );
-// }
+  return (
+    <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
+      <h2 className="text-2xl font-semibold mb-4">Job Application</h2>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <div>
+          <label className="block font-semibold mb-1">Name</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full p-3 border rounded"
+            readOnly
+          />
+        </div>
+        <div>
+          <label className="block font-semibold mb-1">Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-3 border rounded"
+            readOnly
+          />
+        </div>
+        <div>
+          <label className="block font-semibold mb-1">Address</label>
+          <input
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            className="w-full p-3 border rounded"
+          />
+        </div>
+        <div>
+          <label className="block font-semibold mb-1">Resume (as URL or text)</label>
+          <input
+            type="text"
+            value={resume}
+            onChange={(e) => setResume(e.target.value)}
+            className="w-full p-3 border rounded"
+          />
+        </div>
+        <div>
+          <label className="block font-semibold mb-1">Cover Letter (as URL or text)</label>
+          <input
+            type="text"
+            value={coverLetter}
+            onChange={(e) => setCoverLetter(e.target.value)}
+            className="w-full p-3 border rounded"
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white font-semibold py-3 rounded mt-4"
+        >
+          Submit Application
+        </button>
+      </form>
+    </div>
+  );
+}

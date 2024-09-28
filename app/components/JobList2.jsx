@@ -84,15 +84,7 @@ export default function JobList2() {
 
                {/* Buttons at the bottom of the job post */}
                <div className="flex justify-between w-full mt-4">
-                 {/* Apply Button (left aligned) */}
-                 <button
-                    // onClick={() => router.push(`/applyJob/${j._id}`)} // Navigate to application form with job ID
-                    className="bg-white border border-gray-500 text-gray-700 font-bold py-2 px-6 rounded"
-                  >
-                    Apply
-                  </button>
-
-                 {/* Show More Details Button (right aligned) */}
+                 
                  <Link className="mt-4 text-blue-500 font-bold" href={`/employerJobDetail/${j._id}`}>
                    Show More Details
                  </Link>
