@@ -58,4 +58,12 @@ WorkHive is a job marketplace platform designed to connect employers and freelan
 6511125 Myat Min Phyo  
 
 ## Screenshots
-![img alt](https://github.com/Yoonlimin/WorkHive/blob/7e1d3698e0fa9a8f9f282803a9b68edb623e76be/screenshots/piechart.png)
+
+1. ![Screenshot 1](https://github.com/Yoonlimin/WorkHive/blob/main/Screenshots/Screenshot_2024-09-29_183307.png)
+2. ![Screenshot 2](https://github.com/Yoonlimin/WorkHive/blob/main/Screenshots/Screenshot_2024-09-29_183910.png)
+3. ![Screenshot 3](https://github.com/Yoonlimin/WorkHive/blob/main/Screenshots/Screenshot_2024-09-29_183930.png)
+4. ![Screenshot 4](https://github.com/Yoonlimin/WorkHive/blob/main/Screenshots/Screenshot_2024-09-29_183954.png)
+5. ![Screenshot 5](https://github.com/Yoonlimin/WorkHive/blob/main/Screenshots/Screenshot_2024-09-29_184000.png)
+6. ![Screenshot 6](https://github.com/Yoonlimin/WorkHive/blob/main/Screenshots/Screenshot_2024-09-29_184048.png)
+7. ![Screenshot 7](https://github.com/Yoonlimin/WorkHive/blob/main/Screenshots/Screenshot_2024-09-29_190834.png)
+8. ![Screenshot 8](https://github.com/Yoonlimin/WorkHive/blob/main/Screenshots/Screenshot_2024-09-29_190955.png)
