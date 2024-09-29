@@ -58,3 +58,4 @@ WorkHive is a job marketplace platform designed to connect employers and freelan
 6511125 Myat Min Phyo  
 
 ## Screenshots
+![img alt](https://github.com/Yoonlimin/WorkHive/blob/7e1d3698e0fa9a8f9f282803a9b68edb623e76be/screenshots/piechart.png)
