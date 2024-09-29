@@ -1,4 +1,7 @@
-import EditEmployerProfile from "@/app/components/EditEmployerProfile";
+"use client";
+
+import { useEffect, useState } from "react";
+import EditEmployerProfile from "../../components/EditEmployerProfile";
 
 // Function to fetch the employer details by email
 const getEmployerByEmail = async (email) => {
@@ -22,23 +25,48 @@ const getEmployerByEmail = async (email) => {
   }
 };
 
-export default async function EditEProfile({ params }) {
+export default function EditEProfile({ params }) {
   const { id: email } = params; // Extract the email from the route parameters
+  const decodedEmail = decodeURIComponent(email); // Decode the email to handle special characters
+  const [employer, setEmployer] = useState(null); // State to store employer data
+  const [loading, setLoading] = useState(true); // State to manage loading state
+  const [error, setError] = useState(null); // State to manage error state
 
-  // Decode the email to handle special characters
-  const decodedEmail = decodeURIComponent(email);
-  
-  console.log("Fetching employer with email:", decodedEmail);
+  useEffect(() => {
+    const fetchEmployerData = async () => {
+      setLoading(true); // Start loading
+      setError(null); // Reset error state
 
-  // Fetch the employer data by email
-  const employer = await getEmployerByEmail(decodedEmail);
+      const employerData = await getEmployerByEmail(decodedEmail); // Fetch the employer data
+      if (employerData) {
+        setEmployer(employerData); // Set employer data
+      } else {
+        setError("Employer not found"); // Handle not found case
+      }
 
-  if (!employer) {
-    // If employer is null or not found, render an error message or handle it as needed
-    return <div>Employer not found</div>;
+      setLoading(false); // End loading
+    };
+
+    fetchEmployerData(); // Call the fetch function
+  }, [decodedEmail]); // Dependency array
+
+  // Handle loading and error states
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
-  const { name, companyName, companyDetails, address, phoneNumber } = employer;
+  if (error) {
+    return <div>{error}</div>; // Display error message if there's an error
+  }
+
+  // Destructure employer details if employer is successfully fetched
+  const {
+    name,
+    companyName,
+    companyDetails,
+    address,
+    phoneNumber,
+  } = employer;
 
   return (
     <EditEmployerProfile

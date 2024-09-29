@@ -58,6 +58,7 @@ export async function GET(request, { params }) {
  
 
  const job = await JobPost.findOne({ _id: id });
+ console.log(job);
  
  return NextResponse.json({ job }, { status: 200 });
 }
