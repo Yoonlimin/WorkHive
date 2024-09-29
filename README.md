@@ -49,7 +49,6 @@ WorkHive is a job marketplace platform designed to connect employers and freelan
   - Browse job listings based on skills and interests
   - Submit applications with resume and cover letter details
   - Manage profile including skills, experience, and contact details
-- **Job Search & Filtering**: Easily search for jobs based on specific keywords, skills, or experience levels.
 - **Profile Management**: User-friendly interfaces for both employers and freelancers to update their profiles and view relevant opportunities.
 
 ## Team Members (Contributors)
