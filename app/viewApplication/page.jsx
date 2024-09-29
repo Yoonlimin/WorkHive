@@ -1,11 +1,11 @@
 "use client";
 import { HiOutlineDocumentText } from "react-icons/hi";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
-export default function ViewApplications() {
+function ViewApplications() {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
@@ -119,5 +119,13 @@ export default function ViewApplications() {
         </div>
       ))}
     </div>
+  );
+}
+
+export default function ViewApplicationsPage() {
+  return (
+    <Suspense fallback={<p>Loading page...</p>}>
+      <ViewApplications />
+    </Suspense>
   );
 }

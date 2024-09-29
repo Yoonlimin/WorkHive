@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from 'next/image';
 
-export default function FProfile() {
+function FProfile() {
   const [freelancer, setFreelancer] = useState(null);
   const searchParams = useSearchParams();
   const email = searchParams.get('email'); // Get email from query parameter
@@ -42,7 +42,7 @@ export default function FProfile() {
             src="/userProfile.png" // Path to your image relative to the public directory
             alt="Profile Picture"
             className="rounded-full object-cover"
-            layout="fill" // Ensures the image covers the container
+            fill // Ensures the image covers the container
             priority // Optional: improves loading speed for important images
           />
         </div>
@@ -68,8 +68,6 @@ export default function FProfile() {
           <p className="text-gray-700">{freelancer.experienceLevel}</p>
         </div>
 
-        {/* Language Proficiency */}
-        
         {/* Address */}
         <div>
           <h4 className="text-lg font-bold text-emerald-600 mb-2">Address</h4>
@@ -84,5 +82,13 @@ export default function FProfile() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function FProfilePage() {
+  return (
+    <Suspense fallback={<p>Loading profile...</p>}>
+      <FProfile />
+    </Suspense>
   );
 }
