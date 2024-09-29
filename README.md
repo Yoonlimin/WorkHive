@@ -5,7 +5,7 @@ WorkHive is a job marketplace platform designed to connect employers and freelan
 
 ### Main Features
 - **Job Posting & Management**: Employers can post and manage job listings, including job details and requirements.
-- **Freelancer Applications**: Freelancers can view job postings, submit applications, and track their application status.
+- **Freelancer Applications**: Freelancers can view job postings, submit applications.
 - **Profile Management**: Both employers and freelancers can manage their profiles, allowing for easy updates of skills, experience, and contact information.
 
 ## Table of Contents
@@ -30,3 +30,32 @@ WorkHive is a job marketplace platform designed to connect employers and freelan
     # or
     pnpm install
     ```
+
+## Usage
+1. Start the application:
+    ```bash
+    npm start
+    # or
+    pnpm run dev
+    ```
+2. Open your browser and go to `http://localhost:3000` to view the application.
+
+## Features
+- **For Employers**:
+  - Post and manage job listings
+  - View freelancer applications and profiles
+  - Edit or remove job posts
+- **For Freelancers**:
+  - Browse job listings based on skills and interests
+  - Submit applications with resume and cover letter details
+  - Manage profile including skills, experience, and contact details
+- **Job Search & Filtering**: Easily search for jobs based on specific keywords, skills, or experience levels.
+- **Profile Management**: User-friendly interfaces for both employers and freelancers to update their profiles and view relevant opportunities.
+
+## Team Members (Contributors)
+**WorkHive Development Team**  
+6511123 Su Myat Noe  
+6511566 Yoon Waddy Myo Myint  
+6511125 Myat Min Phyo  
+
+## Screenshots
