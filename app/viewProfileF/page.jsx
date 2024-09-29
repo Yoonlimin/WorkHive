@@ -38,14 +38,13 @@ export default function FreelancerProfile() {
       {/* Profile Picture and Basic Info */}
       <div className="flex items-center gap-4 mb-6">
         {/* Profile Picture */}
-        <div className="w-24 h-24 bg-gray-300 rounded-full overflow-hidden">
-          {/* Placeholder or real image */}
+        <div className="w-24 h-24 relative">
           <Image
-            src={"/userProfile.png"}
-            alt="Freelancer Profile"
-            width={96}
-            height={96}
-            className="object-cover"
+            src="/userProfile.png" // Path to your image relative to the public directory
+            alt="Profile Picture"
+            className="rounded-full object-cover"
+            layout="fill" // Ensures the image covers the container
+            priority // Optional: improves loading speed for important images
           />
         </div>
 
@@ -53,7 +52,7 @@ export default function FreelancerProfile() {
         <div>
           <h3 className="text-xl font-bold">{freelancer.name}</h3>
           <p className="text-gray-500">{freelancer.professionalRole}</p>
-          <p className="text-gray-500">Hourly Rate: ${freelancer.hourlyRate}/hr</p>
+        
         </div>
       </div>
 

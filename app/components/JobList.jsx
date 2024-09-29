@@ -111,7 +111,7 @@ export default function JobList() {
 
                   {/* Show More Details Button inside each job post */}
                   <div className="mt-4 flex justify-end w-full">
-                    <Link  className="text-blue-500 font-bold" href={`/employerJobDetail/${j._id}`} >
+                    <Link  className="text-blue-500 font-bold" href={`employerJobDetail/${j._id}`} >
                       Show More Details
                     </Link>
                   </div>

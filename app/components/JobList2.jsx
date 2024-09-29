@@ -53,9 +53,21 @@ export default function JobList2() {
     <>
        <div className="flex justify-between items-center mb-6">
            {/* Add Job Button */}
-           <p className="text-3xl  ">
+           <div className="flex flex-col gap-4">
+           <p className="text-2xl  ">
              Browse Jobs that are most suitable for you!
            </p>
+           
+           <div className="w-full flex justify-start">
+            <Link
+              className="bg-slate-700 text-white font-bold py-3 px-8 rounded flex items-center gap-2 hover:bg-slate-700 transition duration-200"
+              href={`/myApplication?appliedBy=${session?.user?.id}`} // Pass employer ID as a query parameter
+              style={{ maxWidth: '200px', textAlign: 'center' }} // Adjust the max-width as needed
+            >
+              My Applications
+            </Link>
+          </div>
+        </div>
 
            {/* Profile Section */}
            <Link href="/dashboard2" className="flex items-center text-gray-700 text-bold hover:text-gray-900 transition duration-200">
@@ -85,7 +97,7 @@ export default function JobList2() {
                {/* Buttons at the bottom of the job post */}
                <div className="flex justify-between w-full mt-4">
                  
-                 <Link className="mt-4 text-blue-500 font-bold" href={`/employerJobDetail/${j._id}`}>
+                 <Link className="mt-4 text-blue-500 font-bold" href={`/jobDetail/${j._id}`}>
                    Show More Details
                  </Link>
                </div>

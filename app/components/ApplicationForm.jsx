@@ -54,6 +54,7 @@ export default function ApplyJob({ jobPostId }) { // Pass jobPostId as a prop wh
     } catch (error) {
       console.error("Error submitting application:", error);
     }
+    
   };
 
   return (

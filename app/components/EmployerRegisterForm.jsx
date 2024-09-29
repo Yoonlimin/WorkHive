@@ -59,8 +59,10 @@ export default function RegisterForm() {
 
       
    }catch(error){
+      console.error('An error occured while registering', error);
     
    }
+  
    
  };
 

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function JobDetails({ id }) {
+export default function JobDetail({ id }) {
   const [job, setJob] = useState(null); // Initialize as null to avoid errors
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
@@ -30,13 +30,11 @@ export default function JobDetails({ id }) {
         setError(error.message);
         setLoading(false);
       }
-      
     };
 
     if (id) {
       fetchJob();
     }
-
   }, [id]);
 
   if (loading) {
@@ -63,8 +61,7 @@ export default function JobDetails({ id }) {
       <div className="bg-white shadow-lg rounded-lg p-6 mt-4">
         {/* Company Info */}
         <div className="flex items-center gap-4 mb-4">
-          
-          <div className="w-24 h-24 relative">
+        <div className="w-24 h-24 relative">
           <Image
             src="/company.png" // Path to your image relative to the public directory
             alt="Profile Picture"
@@ -72,10 +69,13 @@ export default function JobDetails({ id }) {
             layout="fill" // Ensures the image covers the container
             priority // Optional: improves loading speed for important images
           />
-         </div>
-          
+        </div>
           <div>
-            <p className="text-brown-600 text-xl font-bold">Company Name : {job.companyName || "Company name not available"}</p>
+          <Link href={`/companyProfile/${job.postedBy}`} className="text-blue-500 underline">
+              <p className="text-brown-600 text-xl font-bold">
+                Company Name: {job.companyName || "Company name not available"}
+              </p>
+            </Link>
             <p className="text-lg font-semibold">Job Titile : {job.jobTitle || "Job title not available"}</p>
             <p className="text-gray-500">{job.salaryPerMonth || "Salary not available"} THB / month</p>
           </div>
@@ -107,7 +107,16 @@ export default function JobDetails({ id }) {
         </div>
 
         {/* Apply Button */}
-        
+        <div className="flex justify-end mt-4">
+           <Link href={`/applyJob/${job._id}`}>
+              <button
+              // onClick={() => router.push(`/applyJob/${j._id}`)} // Navigate to application form with job ID
+               className="bg-white border border-gray-500 text-gray-700 font-bold py-2 px-6 rounded"
+                >
+                  Apply
+              </button>
+            </Link>
+        </div>
       </div>
     </div>
   );

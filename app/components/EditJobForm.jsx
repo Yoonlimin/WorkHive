@@ -49,6 +49,8 @@ export default function EditJobForm({ id, companyName, jobTitle, jobDescription,
     } catch (error) {
       console.error("Error updating job post:", error);
     }
+     
+    
   };
 
   return (

@@ -51,6 +51,7 @@ export default function EditFreelancerProfile({ email, name, workType, skills, e
     } catch (error) {
       console.error("Error updating freelancer:", error);
     }
+   
   };
 
   return (
@@ -92,12 +93,17 @@ export default function EditFreelancerProfile({ email, name, workType, skills, e
         {/* Experience Level */}
         <div>
           <label className="block font-semibold mb-1">Experience Level</label>
-          <input
+          <select
             type="text"
             value={newExperienceLevel}
             onChange={(e) => setNewExperienceLevel(e.target.value)}
             className="w-full p-3 border rounded"
-          />
+            >
+              <option value="">Select Experience Level</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Expert">Expert</option>
+          </select>
         </div>
 
         {/* Professional Role */}

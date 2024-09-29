@@ -47,6 +47,7 @@ export default function EditEmployerProfile({ email, name, companyName, companyD
     } catch (error) {
       console.error("Error updating employer:", error);
     }
+    
   };
 
   return (

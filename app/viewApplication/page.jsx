@@ -20,6 +20,22 @@ export default function ViewApplications() {
 
         const data = await res.json();
         setApplications(data.applications);
+
+        const applicationsWithJobTitle = await Promise.all(data.applications.map(async (app) => {
+          // Fetch job details using `jobPostId`
+          const jobRes = await fetch(`http://localhost:3000/api/jobs/${app.jobPostId}`, {
+            cache: "no-store",
+          });
+          
+          if (jobRes.ok) {
+            const jobData = await jobRes.json();
+            return { ...app, jobTitle: jobData.job.jobTitle }; // Add job title to application
+          }
+          
+          return { ...app, jobTitle: "Unknown Job Title" }; // Fallback if job details cannot be fetched
+        }));
+
+        setApplications(applicationsWithJobTitle);
       } catch (error) {
         console.error("Error fetching applications:", error);
       } finally {
@@ -48,13 +64,13 @@ export default function ViewApplications() {
            <Link href={`/viewProfileF/?email=${application.email}`} className="text-slate-500 underline">
              <div className="w-16 h-16 relative">
              <Image
-                  src= "/userProfile.png"// Replace with actual profile image URL
-                  alt="Profile"
-                  
-                  className="rounded-full object-cover"
-                 layout="fill" // Ensures the image covers the container
-                 priority
-                />
+              src="/userProfile.png" // Replace with actual profile image URL
+              alt="Profile"
+              fill // Ensures the image covers the container
+              sizes="(max-width: 768px) 100vw, 64px" // Adjust as needed for responsive sizing
+              priority
+              className="rounded-full object-cover"
+              />
                
              </div>
                View Profile
@@ -63,6 +79,7 @@ export default function ViewApplications() {
            {/* Freelancer's Name */}
           
          </div>
+         <p><strong>Position: </strong>{application.jobTitle}</p>
          <p><strong>Name:</strong> {application.name}</p>
 
          <p><strong>Email:</strong> {application.email}</p>
