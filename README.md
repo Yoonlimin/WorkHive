@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# WorkHive (Job Marketplace Platform)
 
-## Getting Started
+## Overview
+WorkHive is a job marketplace platform designed to connect employers and freelancers, providing a space for job postings, applications, and profile management. Built with Next.js and MongoDB, WorkHive enables users to create job listings, apply for jobs, and manage their profiles effectively, fostering a collaborative and efficient hiring process.
 
-First, run the development server:
+### Main Features
+- **Job Posting & Management**: Employers can post and manage job listings, including job details and requirements.
+- **Freelancer Applications**: Freelancers can view job postings, submit applications.
+- **Profile Management**: Both employers and freelancers can manage their profiles, allowing for easy updates of skills, experience, and contact information.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Team Members (Contributors)](#team-members-contributors)
+- [Screenshots](#screenshots)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/yourusername/workhive.git
+    ```
+2. Navigate to the project directory:
+    ```bash
+    cd workhive
+    ```
+3. Install the dependencies:
+    ```bash
+    npm install
+    # or
+    pnpm install
+    ```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Usage
+1. Start the application:
+    ```bash
+    npm start
+    # or
+    pnpm run dev
+    ```
+2. Open your browser and go to `http://localhost:3000` to view the application.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Features
+- **For Employers**:
+  - Post and manage job listings
+  - View freelancer applications and profiles
+  - Edit or remove job posts
+- **For Freelancers**:
+  - Browse job listings based on skills and interests
+  - Submit applications with resume and cover letter details
+  - Manage profile including skills, experience, and contact details
+- **Job Search & Filtering**: Easily search for jobs based on specific keywords, skills, or experience levels.
+- **Profile Management**: User-friendly interfaces for both employers and freelancers to update their profiles and view relevant opportunities.
 
-## Learn More
+## Team Members (Contributors)
+**WorkHive Development Team**  
+6511123 Su Myat Noe  
+6511566 Yoon Waddy Myo Myint  
+6511125 Myat Min Phyo  
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Screenshots
