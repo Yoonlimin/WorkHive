@@ -15,7 +15,7 @@ export default function ViewApplications() {
     const fetchApplications = async () => {
       try {
         // Fetch applications for jobs posted by the logged-in employer
-        const res = await fetch(`http://localhost:3000/api/apply?employerId=${employerId}`);
+        const res = await fetch(`/api/apply?employerId=${employerId}`);
         if (!res.ok) throw new Error("Failed to fetch applications");
 
         const data = await res.json();
@@ -23,7 +23,7 @@ export default function ViewApplications() {
 
         const applicationsWithJobTitle = await Promise.all(data.applications.map(async (app) => {
           // Fetch job details using `jobPostId`
-          const jobRes = await fetch(`http://localhost:3000/api/jobs/${app.jobPostId}`, {
+          const jobRes = await fetch(`/api/jobs/${app.jobPostId}`, {
             cache: "no-store",
           });
           
@@ -52,58 +52,72 @@ export default function ViewApplications() {
   if (!applications.length) return <p className="text-2xl">Still Haven’t Received Any Applications Yet....</p>;
 
   return (
-   <div>
-     <h1 className="text-2xl font-bold mb-4">Job Applications</h1>
-     {applications.map((application) => (
-       <div key={application._id} className="border p-4 rounded-lg my-2">
+    <div className="p-6 max-w-4xl mx-auto">
+      {/* Header Section */}
+      <h1 className="text-2xl font-bold mb-6 text-emerald-700">Job Applications</h1>
+      
+      {/* Applications List */}
+      {applications.map((application) => (
+        <div 
+          key={application._id} 
+          className="border border-gray-200 rounded-lg p-6 mb-4 bg-white shadow-md hover:shadow-lg transition-shadow duration-200"
+        >
+          {/* Freelancer Profile Section */}
+          <div className="flex items-center gap-4 mb-4">
+            {/* Profile Picture and View Profile Link */}
+            <Link href={`/viewProfileF/?email=${application.email}`} className="flex items-center text-emerald-600 hover:text-emerald-800 transition duration-200">
+              <div className="w-16 h-16 relative">
+                <Image
+                  src="/userProfile.png" // Replace with actual profile image URL
+                  alt="Profile"
+                  fill // Ensures the image covers the container
+                  sizes="(max-width: 768px) 100vw, 64px" // Adjust as needed for responsive sizing
+                  priority
+                  className="rounded-full object-cover"
+                />
+              </div>
+              <span className="ml-2 underline">View Profile</span>
+            </Link>
+          </div>
 
-        
-         {/* Freelancer Profile Section */}
-         <div className="flex items-center gap-4 mb-2">
-           {/* Profile Picture Placeholder */}
-           <Link href={`/viewProfileF/?email=${application.email}`} className="text-slate-500 underline">
-             <div className="w-16 h-16 relative">
-             <Image
-              src="/userProfile.png" // Replace with actual profile image URL
-              alt="Profile"
-              fill // Ensures the image covers the container
-              sizes="(max-width: 768px) 100vw, 64px" // Adjust as needed for responsive sizing
-              priority
-              className="rounded-full object-cover"
-              />
-               
-             </div>
-               View Profile
-             </Link>
+          {/* Application Details */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <p><strong className="text-gray-500">Position: </strong>{application.jobTitle}</p>
+            <p><strong className="text-gray-500">Name: </strong>{application.name}</p>
+            <p><strong className="text-gray-500">Email: </strong>{application.email}</p>
+            <p><strong className="text-gray-500">Address: </strong>{application.address}</p>
+          </div>
 
-           {/* Freelancer's Name */}
-          
-         </div>
-         <p><strong>Position: </strong>{application.jobTitle}</p>
-         <p><strong>Name:</strong> {application.name}</p>
+          {/* Resume and Cover Letter Links */}
+          <div className="mt-4">
+            <p className="flex items-center gap-2">
+              <strong className="text-gray-500">Resume:</strong>
+              <a 
+                href={application.resume} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-center gap-2 text-red-600 hover:text-red-800 transition duration-200"
+              >
+                <HiOutlineDocumentText size={25} />
+                <span>View Resume</span>
+              </a>
+            </p>
 
-         <p><strong>Email:</strong> {application.email}</p>
-         <p><strong>Address:</strong> {application.address}</p>
-         
-         <p className="flex items-center gap-2">
-           <strong>Resume:</strong>
-           <a href={application.resume} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-             <HiOutlineDocumentText size={25} className="text-red-600" />
-             {/* Add a label beside the icon */}
-             <span>View Resume</span>
-           </a>
-         </p>
-
-         <p className="flex items-center gap-2">
-           <strong>Cover Letter:</strong>
-           <a href={application.coverLetter} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-             <HiOutlineDocumentText size={25} className="text-red-600" />
-             {/* Add a label beside the icon */}
-             <span>View Cover Letter</span>
-           </a>
-         </p>
-       </div>
-     ))}
-   </div>
- );
+            <p className="flex items-center gap-2 mt-2">
+              <strong className="text-gray-500">Cover Letter:</strong>
+              <a 
+                href={application.coverLetter} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-center gap-2 text-red-600 hover:text-red-800 transition duration-200"
+              >
+                <HiOutlineDocumentText size={25} />
+                <span>View Cover Letter</span>
+              </a>
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }

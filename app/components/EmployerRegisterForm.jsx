@@ -26,7 +26,7 @@ export default function RegisterForm() {
 
    try{
 
-    const resUserExist=await fetch('http://localhost:3000/api/userExist', {
+    const resUserExist=await fetch('/api/userExist', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ export default function RegisterForm() {
     }
 
 
-    const res=await fetch('http://localhost:3000/api/Eregister', {
+    const res=await fetch('/api/Eregister', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -22,7 +22,7 @@ export default function EditEmployerProfile({ email, name, companyName, companyD
 
     try {
       // Update employer data using email as identifier
-      const res = await fetch(`http://localhost:3000/api/Eregister/${decodedEmail}`, {
+      const res = await fetch(`/api/Eregister/${decodedEmail}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -47,69 +47,72 @@ export default function EditEmployerProfile({ email, name, companyName, companyD
     } catch (error) {
       console.error("Error updating employer:", error);
     }
-    
   };
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-semibold mb-4">Edit Profile</h2>
+      <h2 className="text-2xl font-bold text-emerald-700 mb-6">Edit Profile</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         {/* Name */}
         <div>
-          <label className="block font-semibold mb-1">Name</label>
+          <label className="block font-semibold text-gray-700 mb-1">Name</label>
           <input
             type="text"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
           />
         </div>
 
         {/* Company Name */}
         <div>
-          <label className="block font-semibold mb-1">Company Name</label>
+          <label className="block font-semibold text-gray-700 mb-1">Company Name</label>
           <input
             type="text"
             value={newCompanyName}
             onChange={(e) => setNewCompanyName(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
           />
         </div>
 
         {/* Company Details */}
         <div>
-          <label className="block font-semibold mb-1">Company Details</label>
+          <label className="block font-semibold text-gray-700 mb-1">Company Details</label>
           <textarea
             value={newCompanyDetails}
             onChange={(e) => setNewCompanyDetails(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
+            rows="4"
           />
         </div>
 
         {/* Address */}
         <div>
-          <label className="block font-semibold mb-1">Address</label>
+          <label className="block font-semibold text-gray-700 mb-1">Address</label>
           <input
             type="text"
             value={newAddress}
             onChange={(e) => setNewAddress(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
           />
         </div>
 
         {/* Phone Number */}
         <div>
-          <label className="block font-semibold mb-1">Phone Number</label>
+          <label className="block font-semibold text-gray-700 mb-1">Phone Number</label>
           <input
             type="text"
             value={newPhoneNumber}
             onChange={(e) => setNewPhoneNumber(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
           />
         </div>
 
         {/* Submit Button */}
-        <button type="submit" className="w-full bg-blue-500 text-white font-semibold py-3 rounded mt-4">
+        <button 
+          type="submit" 
+          className="w-full bg-emerald-600 text-white font-bold py-3 rounded hover:bg-emerald-700 transition duration-200 mt-4"
+        >
           Save Changes
         </button>
       </form>

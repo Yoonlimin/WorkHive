@@ -3,7 +3,7 @@ import ApplicationForm from '../../components/ApplicationForm';
 
 const getJobById = async (id) => {
  try {
-   const res = await fetch(`http://localhost:3000/api/jobs/${id}`, {
+   const res = await fetch(`/api/jobs/${id}`, {
      cache: "no-store", // Ensures fresh data is fetched
    });
 

@@ -5,7 +5,7 @@ const getFreelancerByEmail = async (email) => {
    // Ensure email is properly decoded
    const decodedEmail = decodeURIComponent(email);
    
-   const res = await fetch(`http://localhost:3000/api/Fregister?email=${decodedEmail}`, {
+   const res = await fetch(`/api/Fregister?email=${decodedEmail}`, {
      cache: "no-store",
    });
 

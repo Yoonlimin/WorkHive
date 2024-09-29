@@ -6,7 +6,7 @@ const getEmployerByEmail = async (email) => {
     // Ensure email is properly decoded
     const decodedEmail = decodeURIComponent(email);
     
-    const res = await fetch(`http://localhost:3000/api/Eregister?email=${decodedEmail}`, {
+    const res = await fetch(`/api/Eregister?email=${decodedEmail}`, {
       cache: "no-store",
     });
 

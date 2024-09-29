@@ -12,7 +12,7 @@ const getFreelancerProfile = async (email) => {
   try {
     // Encode the email before making the fetch call
     const encodedEmail = encodeURIComponent(email);
-    const res = await fetch(`http://localhost:3000/api/Fregister?email=${encodedEmail}`, {
+    const res = await fetch(`/api/Fregister?email=${encodedEmail}`, {
       cache: "no-store",
     });
 
@@ -32,7 +32,7 @@ const deleteFreelancerAccount = async (email) => {
   const confirmed = confirm("Are you sure you want to delete your account?");
   if (confirmed) {
     const encodedEmail = encodeURIComponent(email);
-    const res = await fetch(`http://localhost:3000/api/Fregister?email=${encodedEmail}`, {
+    const res = await fetch(`/api/Fregister?email=${encodedEmail}`, {
       method: "DELETE",
     });
 

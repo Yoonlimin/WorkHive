@@ -1,7 +1,7 @@
 import EditJobForm from "@/app/components/EditJobForm";
 const getJobById = async (id) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/jobs/${id}`, {
+    const res = await fetch(`/api/jobs/${id}`, {
       cache: "no-store", // Ensures fresh data is fetched
     });
     if (!res.ok) {

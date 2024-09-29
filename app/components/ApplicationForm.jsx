@@ -29,7 +29,7 @@ export default function ApplyJob({ jobPostId }) { // Pass jobPostId as a prop wh
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:3000/api/apply", {
+      const res = await fetch("/api/apply", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,60 +57,73 @@ export default function ApplyJob({ jobPostId }) { // Pass jobPostId as a prop wh
     
   };
 
+
   return (
     <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-semibold mb-4">Job Application</h2>
+      <h2 className="text-2xl font-bold text-emerald-700 mb-6">Job Application</h2>
+      
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        {/* Name */}
         <div>
-          <label className="block font-semibold mb-1">Name</label>
+          <label className="block font-semibold text-gray-700 mb-1">Name</label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
             readOnly
           />
         </div>
+
+        {/* Email */}
         <div>
-          <label className="block font-semibold mb-1">Email</label>
+          <label className="block font-semibold text-gray-700 mb-1">Email</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
             readOnly
           />
         </div>
+
+        {/* Address */}
         <div>
-          <label className="block font-semibold mb-1">Address</label>
+          <label className="block font-semibold text-gray-700 mb-1">Address</label>
           <input
             type="text"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
           />
         </div>
+
+        {/* Resume */}
         <div>
-          <label className="block font-semibold mb-1">Resume (as URL or text)</label>
+          <label className="block font-semibold text-gray-700 mb-1">Resume (as URL or text)</label>
           <input
             type="text"
             value={resume}
             onChange={(e) => setResume(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
           />
         </div>
+
+        {/* Cover Letter */}
         <div>
-          <label className="block font-semibold mb-1">Cover Letter (as URL or text)</label>
+          <label className="block font-semibold text-gray-700 mb-1">Cover Letter (as URL or text)</label>
           <input
             type="text"
             value={coverLetter}
             onChange={(e) => setCoverLetter(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
           />
         </div>
+
+        {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white font-semibold py-3 rounded mt-4"
+          className="w-full bg-emerald-600 text-white font-bold py-3 rounded hover:bg-emerald-700 transition duration-200 mt-4"
         >
           Submit Application
         </button>

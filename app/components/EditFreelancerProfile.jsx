@@ -24,7 +24,7 @@ export default function EditFreelancerProfile({ email, name, workType, skills, e
 
     try {
       // Update freelancer data using email as identifier
-      const res = await fetch(`http://localhost:3000/api/Fregister/${decodedEmail}`, {
+      const res = await fetch(`/api/Fregister/${decodedEmail}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -51,55 +51,55 @@ export default function EditFreelancerProfile({ email, name, workType, skills, e
     } catch (error) {
       console.error("Error updating freelancer:", error);
     }
-   
   };
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-semibold mb-4">Edit Freelancer Profile</h2>
+      <h2 className="text-2xl font-bold text-emerald-700 mb-6">Edit Freelancer Profile</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         {/* Name */}
         <div>
-          <label className="block font-semibold mb-1">Name</label>
+          <label className="block font-semibold text-gray-700 mb-1">Name</label>
           <input
             type="text"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
           />
         </div>
 
         {/* Work Type */}
         <div>
-          <label className="block font-semibold mb-1">Work Type</label>
+          <label className="block font-semibold text-gray-700 mb-1">Work Type</label>
           <input
             type="text"
             value={newWorkType}
             onChange={(e) => setNewWorkType(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
           />
         </div>
 
         {/* Skills */}
         <div>
-          <label className="block font-semibold mb-1">Skills</label>
+          <label className="block font-semibold text-gray-700 mb-1">Skills</label>
           <textarea
             value={newSkills}
             onChange={(e) => setNewSkills(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
+            rows="4"
+            placeholder="E.g., JavaScript, React, Node.js"
           />
         </div>
 
         {/* Experience Level */}
         <div>
-          <label className="block font-semibold mb-1">Experience Level</label>
+          <label className="block font-semibold text-gray-700 mb-1">Experience Level</label>
           <select
-            type="text"
             value={newExperienceLevel}
             onChange={(e) => setNewExperienceLevel(e.target.value)}
-            className="w-full p-3 border rounded"
-            >
-              <option value="">Select Experience Level</option>
+            className="w-full p-3 border border-gray-300 rounded"
+          >
+            <option value="">Select Experience Level</option>
             <option value="Beginner">Beginner</option>
             <option value="Intermediate">Intermediate</option>
             <option value="Expert">Expert</option>
@@ -108,39 +108,43 @@ export default function EditFreelancerProfile({ email, name, workType, skills, e
 
         {/* Professional Role */}
         <div>
-          <label className="block font-semibold mb-1">Professional Role</label>
+          <label className="block font-semibold text-gray-700 mb-1">Professional Role</label>
           <input
             type="text"
             value={newProfessionalRole}
             onChange={(e) => setNewProfessionalRole(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
+            placeholder="E.g., Web Developer"
           />
         </div>
 
         {/* Address */}
         <div>
-          <label className="block font-semibold mb-1">Address</label>
+          <label className="block font-semibold text-gray-700 mb-1">Address</label>
           <input
             type="text"
             value={newAddress}
             onChange={(e) => setNewAddress(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
           />
         </div>
 
         {/* Phone Number */}
         <div>
-          <label className="block font-semibold mb-1">Phone Number</label>
+          <label className="block font-semibold text-gray-700 mb-1">Phone Number</label>
           <input
             type="text"
             value={newPhoneNumber}
             onChange={(e) => setNewPhoneNumber(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
           />
         </div>
 
         {/* Submit Button */}
-        <button type="submit" className="w-full bg-blue-500 text-white font-semibold py-3 rounded mt-4">
+        <button 
+          type="submit" 
+          className="w-full bg-emerald-600 text-white font-bold py-3 rounded hover:bg-emerald-700 transition duration-200 mt-4"
+        >
           Save Changes
         </button>
       </form>

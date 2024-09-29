@@ -10,7 +10,7 @@ export default function RemoveBtn({ id, onJobDelete }) {
     const confirmed = confirm("Are you sure you want to delete this JobPost?");
     if (confirmed) {
       
-        const res = await fetch(`http://localhost:3000/api/jobs?id=${id}`, {
+        const res = await fetch(`/api/jobs?id=${id}`, {
           
           method: "DELETE",
         });

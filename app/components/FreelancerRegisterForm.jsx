@@ -41,7 +41,7 @@ export default function FreelancerRegisterForm() {
 
     try {
       // Check if freelancer exists
-      const resUserExist = await fetch('http://localhost:3000/api/userExist2', {
+      const resUserExist = await fetch('/api/userExist2', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ export default function FreelancerRegisterForm() {
       }
 
       // Register new freelancer
-      const res = await fetch('http://localhost:3000/api/Fregister', {
+      const res = await fetch('/api/Fregister', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

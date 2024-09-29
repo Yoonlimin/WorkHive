@@ -40,7 +40,7 @@ export default function AddJobPost() {
     const sessionToken = session?.user?.accessToken;
 
     // Send the job data to the backend API (replace with your API URL)
-    const res = await fetch('http://localhost:3000/api/jobs', {
+    const res = await fetch('/api/jobs', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

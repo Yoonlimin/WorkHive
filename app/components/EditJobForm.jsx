@@ -22,7 +22,7 @@ export default function EditJobForm({ id, companyName, jobTitle, jobDescription,
     e.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:3000/api/jobs/${id}`, {
+      const res = await fetch(`/api/jobs/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -55,86 +55,88 @@ export default function EditJobForm({ id, companyName, jobTitle, jobDescription,
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-semibold mb-4">Update Job Post</h2>
+      <h2 className="text-2xl font-bold text-emerald-700 mb-6">Update Job Post</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        
         {/* Company Name */}
         <div>
-          <label className="block font-semibold mb-1">Company Name</label>
+          <label className="block font-semibold text-gray-700 mb-1">Company Name</label>
           <input
             type="text"
             value={newCompanyName}
             onChange={(e) => setNewCompanyName(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
             placeholder="Company Name"
           />
         </div>
 
         {/* Job Title */}
         <div>
-          <label className="block font-semibold mb-1">Job Title</label>
+          <label className="block font-semibold text-gray-700 mb-1">Job Title</label>
           <input
             type="text"
             value={newJobTitle}
             onChange={(e) => setNewJobTitle(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
             placeholder="Job Title"
           />
         </div>
 
         {/* Job Description */}
         <div>
-          <label className="block font-semibold mb-1">Job Description</label>
+          <label className="block font-semibold text-gray-700 mb-1">Job Description</label>
           <textarea
             value={newJobDescription}
             onChange={(e) => setNewJobDescription(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
             placeholder="Job Description"
+            rows="4"
           />
         </div>
 
         {/* Skills Required */}
         <div>
-          <label className="block font-semibold mb-1">Skills Required</label>
+          <label className="block font-semibold text-gray-700 mb-1">Skills Required</label>
           <input
             type="text"
             value={newSkillsRequired}
             onChange={(e) => setNewSkillsRequired(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
             placeholder="Skills Required (comma separated)"
           />
         </div>
 
         {/* Salary Per Month */}
         <div>
-          <label className="block font-semibold mb-1">Salary Per Month</label>
+          <label className="block font-semibold text-gray-700 mb-1">Salary Per Month</label>
           <input
             type="number"
             value={newSalaryPerMonth}
             onChange={(e) => setNewSalaryPerMonth(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
             placeholder="Salary Per Month"
           />
         </div>
 
         {/* Work Duration */}
         <div>
-          <label className="block font-semibold mb-1">Work Duration</label>
+          <label className="block font-semibold text-gray-700 mb-1">Work Duration</label>
           <input
             type="text"
             value={newWorkDuration}
             onChange={(e) => setNewWorkDuration(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
             placeholder="Work Duration (e.g., 6 months)"
           />
         </div>
 
         {/* Experience Level */}
         <div>
-          <label className="block font-semibold mb-1">Experience Level</label>
+          <label className="block font-semibold text-gray-700 mb-1">Experience Level</label>
           <select
             value={newExperienceLevel}
             onChange={(e) => setNewExperienceLevel(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
           >
             <option value="">Select Experience Level</option>
             <option value="Beginner">Beginner</option>
@@ -145,24 +147,23 @@ export default function EditJobForm({ id, companyName, jobTitle, jobDescription,
 
         {/* Application Deadline */}
         <div>
-          <label className="block font-semibold mb-1">Application Deadline</label>
+          <label className="block font-semibold text-gray-700 mb-1">Application Deadline</label>
           <input
             type="date"
             value={newDeadline}
             onChange={(e) => setNewDeadline(e.target.value)}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border border-gray-300 rounded"
           />
         </div>
 
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-green-600 text-white font-bold py-3 rounded mt-4"
+          className="w-full bg-emerald-600 text-white font-bold py-3 rounded hover:bg-emerald-700 transition duration-200 mt-4"
         >
           Update Job Post
         </button>
       </form>
     </div>
-
   );
 }

@@ -11,7 +11,7 @@ import Image from 'next/image';
 const getEmployerProfile = async (email) => {
   try {
     const encodedEmail = encodeURIComponent(email);
-    const res = await fetch(`http://localhost:3000/api/Eregister?email=${encodedEmail}`, {
+    const res = await fetch(`/api/Eregister?email=${encodedEmail}`, {
       cache: "no-store",
     });
 
@@ -31,7 +31,7 @@ const deleteEmployerAccount = async (email) => {
   const confirmed = confirm("Are you sure you want to delete this account?");
   if (confirmed) {
     const encodedEmail = encodeURIComponent(email);
-    const res = await fetch(`http://localhost:3000/api/Eregister?email=${encodedEmail}`, {
+    const res = await fetch(`/api/Eregister?email=${encodedEmail}`, {
       method: "DELETE",
     });
 
@@ -62,79 +62,68 @@ export default function EmployerProfile() {
   }
 
   return (
-    <div className="p-4 mt-10">
+    <div className="p-6 w-full min-h-screen bg-gray-50">
       {/* Header */}
       <div className="flex items-center justify-between mt-5 mb-10">
-      <div className="flex items-center gap-4">
-        {/* Profile Picture Placeholder */}
-        <div className="w-16 h-16 relative">
+        <div className="flex items-center gap-4">
+          {/* Profile Picture */}
+          <div className="w-16 h-16 relative">
+            <Image
+              src="/userProfile.png"
+              alt="Profile Picture"
+              className="rounded-full object-cover"
+              layout="fill"
+              priority
+            />
+          </div>
 
-        <Image
-            src="/userProfile.png" // Path to your image relative to the public directory
-            alt="Profile Picture"
-            className="rounded-full object-cover"
-            layout="fill" // Ensures the image covers the container
-            priority // Optional: improves loading speed for important images
-          />
+          {/* Employer's Name */}
+          <h1 className="text-3xl font-bold text-navbar-color">{employer.name}</h1> {/* Match navbar color */}
         </div>
-        
-        {/* Freelancer's Name */}
-        <h1 className="text-3xl font-bold">{employer.name}</h1>
-      </div>
 
+        {/* Edit Profile Button */}
         <button
-          className="bg-slate-500 p-2 rounded-full text-white flex items-center gap-3"
+          className="bg-emerald-800 hover:bg-emerald-900 p-2 rounded-full text-white flex items-center gap-2"
           onClick={() => router.push(`/editEProfile/${encodeURIComponent(employer.email)}`)}
         >
-          <HiPencilAlt size={24} />
+          <HiPencilAlt size={20} />
         </button>
       </div>
 
       {/* Employer Account Info */}
-      <div className="bg-white rounded-lg p-6 shadow mb-6">
-        <div className="flex justify-between items-center">
-          <div>
-            <h2 className="text-xl font-bold mb-2">Account and Password</h2>
-            <p className="text-gray-500">{employer.email}</p>
-            <p className="text-gray-500">*******</p>
-          </div>
-        </div>
+      <div className="bg-white rounded-lg p-6 shadow-md mb-6">
+        <h2 className="text-xl font-bold text-emerald-800 mb-2">Account and Password</h2>
+        <p className="text-gray-600">{employer.email}</p>
+        <p className="text-gray-600">*******</p>
       </div>
 
-      <div className="bg-white rounded-lg p-6 shadow mb-6">
-        <div className="flex justify-between items-center">
-          <div>
-            <h2 className="text-xl font-bold mb-2">Company Name</h2>
-            <p>{employer.companyName}</p>
-          </div>
-        </div>
+      {/* Company Name */}
+      <div className="bg-white rounded-lg p-6 shadow-md mb-6">
+        <h2 className="text-xl font-bold text-emerald-800 mb-2">Company Name</h2>
+        <p className="text-gray-600">{employer.companyName}</p>
       </div>
 
       {/* Company Details */}
-      <div className="bg-white rounded-lg p-6 shadow mb-6">
-        <div className="flex justify-between items-center">
-          <div>
-            <h2 className="text-xl font-bold mb-2">Company Details</h2>
-            <p>{employer.companyDetails}</p>
-          </div>
-        </div>
+      <div className="bg-white rounded-lg p-6 shadow-md mb-6">
+        <h2 className="text-xl font-bold text-emerald-800 mb-2">Company Details</h2>
+        <p className="text-gray-600">{employer.companyDetails}</p>
       </div>
 
       {/* Company Contacts */}
-      <div className="bg-white rounded-lg p-6 shadow mb-6">
-        <h2 className="text-xl font-bold mb-2">Company contacts</h2>
-        <p className="font-bold">Address</p>
-        <p>{employer.address}</p>
-        <p className="font-bold">Phone</p>
-        <p>{employer.phoneNumber}</p>
+      <div className="bg-white rounded-lg p-6 shadow-md mb-6">
+        <h2 className="text-xl font-bold text-emerald-800 mb-2">Company Contacts</h2>
+        <p className="font-bold text-gray-700">Address</p>
+        <p className="text-gray-600">{employer.address}</p>
+        <p className="font-bold text-gray-700 mt-2">Phone</p>
+        <p className="text-gray-600">{employer.phoneNumber}</p>
       </div>
 
       {/* Account Actions */}
-      <div className="bg-white rounded-lg p-6 shadow">
-        <div className="flex justify-between">
+      <div className="bg-white rounded-lg p-6 shadow-md">
+        <div className="flex justify-between items-center">
           {/* Delete Button */}
           <button
-            className="bg-red-500 text-white font-bold py-2 px-4 rounded"
+            className="bg-red-700 hover:bg-red-800 text-white font-semibold py-2 px-4 rounded transition duration-200"
             onClick={async () => {
               const isDeleted = await deleteEmployerAccount(employer.email);
               if (isDeleted) {
@@ -146,7 +135,7 @@ export default function EmployerProfile() {
           >
             Delete Account
           </button>
-          
+
           {/* Logout Button */}
           <button
             onClick={() => {
@@ -154,9 +143,9 @@ export default function EmployerProfile() {
                 router.push('/'); // Redirect to '/' after signing out
               });
             }}
-            className="text-red-600 font-bold py-2 px-4 rounded border border-red-600"
+            className="text-red-700 hover:bg-red-100 font-semibold py-2 px-4 rounded border border-red-700 transition duration-200"
           >
-            LogOut
+            Log Out
           </button>
         </div>
       </div>
